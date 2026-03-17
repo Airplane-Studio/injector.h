@@ -35,24 +35,20 @@ int injector_main(int argc, char *argv[]) {
     fclose(fp2);
     free(myself);
     inject(argv[2], inject_data, inject_size);
+#ifdef __unix__
     chmod(argv[2], 0777);
+#endif
     free(inject_data);
     return 0;
 }
 
 int main(int argc, char *argv[]) {
-    bool flag = false;
-    for (int i = 0; i < argc; i++) {
-        if (!strcmp(argv[i], "-r")) {
-            flag = true;
-            break;
-        }
-    }
+    bool flag = argc == 4 && !strcmp(argv[3], "-r");
     char *content = get_inject_content(argv[0]);
     if (content && !flag) {
         puts(content);
         free(content);
         return 0;
     }
-    return injector_main(argc, argv);
+    return injector_main(flag ? argc - 1 : argc, argv);
 }

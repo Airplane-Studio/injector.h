@@ -6,9 +6,9 @@ void inject(char *filename, char *data, int len);
 // read the injected data into file <filename>. if anything failed or no data injected, return NULL.
 char *get_inject_content(char *filename);
 
-#define INJECTION_MAGIC 0x494A4354
-
 #ifdef _INJECTOR_IMPL
+
+#define INJECTION_MAGIC 0x494A4354
 
 #include <stdio.h>
 #include <stdlib.h>
